@@ -1,7 +1,7 @@
 {
-  "name": "api-ice-cream-bakend",
+  "name": "api-finances-family",
   "version": "1.0.0",
-  "description": "Backend ice-cream-app",
+  "description": "Backend api-finances-family",
   "main": "index.js",
   "scripts": {
     "lint": "tslint -p tsconfig.json",
@@ -11,8 +11,8 @@
     "test": "jest",
     "test-watch": "jest --watch"
   },
-  "repository": "https://github.com/orlas135/api-ice-cream-bakend.git",
-  "author": "orlas135 <alexorlas96@gmail.com>",
+  "repository": "https://github.com/juanfer2/api-node-family-finances",
+  "author": "juanfer2 <jfvilladiego3@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "@types/cors": "^2.8.6",
