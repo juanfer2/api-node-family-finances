@@ -8,22 +8,16 @@ export interface IGraphqlClient {
 class GraphqlClient implements IGraphqlClient{
   private client: any;
 
-  constructor(){
-    this.client = Client
+  constructor(token: string){
+    this.client = Client(token)
   }
 
   public async query(queryString: string, variables: any) {
-    this.client.query({
-      variables,
-      query: queryString
-    });
+    return await this.client.request(queryString, variables)
   }
 
   public async mutation(mutationString: string, variables: any) {
-    this.client.mutate({
-      variables,
-      mutation: mutationString,
-    });
+    return await this.client.request(mutationString, variables)
   }
 }
 

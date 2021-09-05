@@ -3,13 +3,17 @@ import { ConnectionSocketIO } from '../interfaces/socket.io';
 import { CONNECTION, GET_EXPENSES, DISCONNECT } from '../constants/socket.io'
 import ExpensesService from "../services/v1/expenses_service";
 
+
+interface DataExpenses {
+  token: string;
+  id: any;
+}
 class ConnectionSocket implements ConnectionSocketIO{
   private io: any;
   public socketIO: SocketIO.Socket;
 
   constructor(
-    public serverHttp: any,
-    private expensesService = new ExpensesService
+    public serverHttp: any
   ) {
     console.log("Socket connected!");
     this.io = new SocketIO.Server(serverHttp, {
@@ -25,25 +29,22 @@ class ConnectionSocket implements ConnectionSocketIO{
       this.socketIO = connectSocket;
 
       this.socketIO.on("healt", (data:any) => {
-        //console.log('healt')
-        //console.log(data)
         this.io.emit("healt", {status: "ok"});
       })
 
-      this.socketIO.on("get_expenses", async(data:any) => {
-        //console.log('get_expenses')
-        //console.log(data)
-        const expenses = await this.expensesService.expenses(5)
+      this.socketIO.on("get_expenses", async(data: DataExpenses) => {
+        const expensesService = new ExpensesService(data.token)
+        const expenses = await expensesService.expenses(data.id)
         this.io.emit("get_expenses", expenses);
       })
 
-       //this.socketIO.on('get_expenses', async (data: any) =>{
-       //  console.log('expenses')
-       //   console.log(data)
-       //   //const expenses = await this.expensesService.expenses(4)
-       //   this.io.emit('get_expenses', 'expenses');
-       //  
-       //})
+      this.socketIO.on("get_news_expense", async(data: any) => {
+        const expensesService = new ExpensesService(data.token)
+        console.log('get_news_expense')
+        console.log(data)
+        await expensesService.createExpense(data.expense)
+        this.io.emit("get_news_expense", data.expense);
+      })
     })
   }
 
