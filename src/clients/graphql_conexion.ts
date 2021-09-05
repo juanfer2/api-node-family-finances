@@ -5,7 +5,7 @@ import { request, gql, GraphQLClient } from 'graphql-request'
 
 // Run GraphQL queries/mutations using a static function
 // ... or create a GraphQL client instance to send requests
-const Client = new GraphQLClient('http://localhost:3000//api/v1/graphql', { 
+const Client = new GraphQLClient('https://family-finances-backend.herokuapp.com/api/v1/graphql', { 
   headers: {
     Authorization: 'dQ6mrGdtaCF2JxyhWaqh',
   }
